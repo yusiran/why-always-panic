@@ -14,6 +14,6 @@ param["a"] = "b"
 正确用法：
 ```golang
 var param map[string]string
-param = make(map[string]string]
+param = make(map[string]string])
 param["a"] = "b"
 ```
