@@ -42,3 +42,35 @@ type User struct {
     Name string `json:"name" form:"name"`
 }
 ```
+
+## func的[]interface{}类型参数自动转换问题
+
+```golang
+func Contain(data []interface{}, target interface{}) bool {
+    result := false
+    for _, item := range data {
+        if item == target {
+            result = true
+            break
+        }
+    }
+    return result
+}
+
+func main() {
+    strings := []string{"a", "b", "c"}
+    target := "d"
+    c := Contain(strings, target)
+    fmt.Println(c)
+}
+```
+
+会报语法错误：```cannot use names (type []string) as type []interface{} in argument to Contain```
+
+原因：go不会对interface{}类型的slice做类型转换
+
+官方解释：https://github.com/golang/go/wiki/InterfaceSlice
+
+正确用法：
+1.遍历strings，做类型转换，把元素导入```[]interface```类型的slice中，再调用Contain()
+2.Contain的data参数改成```[]string```类型
