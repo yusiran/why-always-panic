@@ -74,3 +74,19 @@ func main() {
 正确用法：
 1.遍历strings，做类型转换，把元素导入```[]interface```类型的slice中，再调用Contain()
 2.Contain的data参数改成```[]string```类型
+
+
+## evaluated but not used
+
+```golang
+append(strSlice, "a")
+```
+
+报错append() evaluated but not used
+
+原因：append()会返回append之后的strSlice，需要使用
+
+正确用法：
+```golang
+strSlice = append(strSlice, "a")
+```
