@@ -132,3 +132,20 @@ strconv.Atoi("009")
 ```golang 
 strconv.ParseInt("009", 10, 0)
 ```
+
+## 浮点数乘法也有坑
+
+```golang
+a := 4.89
+b := a * 100
+fmt.Println(b)
+```
+
+打印出来的结果是488.9999999
+
+正确用法：
+```golang
+b := decimal.NewFromFloat(a).Mul(decimal.NewFromInt(100)).Float64
+```
+
+这里乘以100就是为了转成整数好做后续的计算，所以最好是一开始就避免出现浮点数，全程使用整数做计算。迫不得已接受了浮点数的参数，可以考虑使用github.com/shopspring/decimal 包做计算
